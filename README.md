@@ -6,13 +6,36 @@ re-rendering them onto physical surround speakers for true room-scale positionin
 
 ## Status
 
-📋 **Planning phase.** The complete project plan — architecture, data strategy, roadmap, and
-risks — lives in [PLAN.md](PLAN.md).
+🔧 **Phases 0–1 complete:** working CLI with a classical DSP baseline upmixer
+(frequency-domain ambience/center extraction), channel-order-safe multichannel I/O, ITU
+downmix, LFE crossover, tests, and CI. Neural models are next — the complete plan lives in
+[PLAN.md](PLAN.md).
 
-## What this will become
+## Quickstart
 
 ```bash
-# the end goal
+pip install -e .[dev]
+
+# convert a stereo file to 5.1 or 7.1 (DSP baseline profile)
+upmix convert recording.wav --layout 5.1 -o surround.wav
+upmix convert recording.wav --layout 7.1
+
+# inspect a file (channel count, L/R correlation)
+upmix info recording.wav
+
+# tweak the rendering
+upmix convert in.wav --layout 5.1 --surround-gain 1.2 --center-gain 0.8 --lfe-gain 0.4
+
+# run the test suite
+python3 -m pytest -q
+```
+
+Output files are standard multichannel WAV (WAVEFORMATEXTENSIBLE speaker order:
+`FL FR FC LFE BL BR [SL SR]`), playable on any surround receiver or player.
+
+## The end goal
+
+```bash
 upmix convert asmr_recording.wav --layout 5.1 --profile binaural-voice -o output.wav
 ```
 

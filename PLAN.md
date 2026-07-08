@@ -181,18 +181,22 @@ Conventions that keep it friendly:
 
 ## 6. Roadmap
 
-### Phase 0 — Scaffolding (~1 week)
-- [ ] Repo skeleton, `pyproject.toml`, ruff, pytest, CI
-- [ ] Multichannel audio I/O with explicit channel-order handling (SMPTE/WAV vs FFmpeg orders
+### Phase 0 — Scaffolding ✅
+- [x] Repo skeleton, `pyproject.toml`, ruff, pytest, CI
+- [x] Multichannel audio I/O with explicit channel-order handling (SMPTE/WAV vs FFmpeg orders
       are a classic silent-bug source — unit-test this first)
-- **Gate:** `pip install -e .` + `upmix --help` works; CI green.
+- **Gate met:** `pip install -e .` + `upmix --help` works; CI configured.
 
-### Phase 1 — DSP foundation + usable CLI (~2 weeks)
-- [ ] STFT utilities, ITU downmix, VBAP panner, LFE crossover
-- [ ] Classical baseline upmixer (passive matrix + mid/side ambience extraction)
-- [ ] `upmix convert in.wav --layout 5.1 --profile baseline -o out.wav`
-- **Gate:** the tool already converts files end-to-end (DSP only). Useful from week 3, and
-  every later model slots into an already-working CLI.
+### Phase 1 — DSP foundation + usable CLI ✅
+- [x] STFT utilities, ITU downmix, LFE crossover (VBAP panner moves to Phase 2 where it is
+      first needed, for rendering ground-truth targets)
+- [x] Classical baseline upmixer (frequency-domain ambience/center extraction,
+      Avendano & Jot style — chosen over a passive matrix as the stronger baseline)
+- [x] `upmix convert in.wav --layout 5.1 --profile baseline -o out.wav`
+- **Gate met:** the tool converts files end-to-end (DSP only); every later model slots into
+  an already-working CLI. Verified behaviors: centered content → FC, hard-panned content
+  stays in its front channel, decorrelated ambience → surrounds, LFE crossover-derived from
+  the full front bed.
 
 ### Phase 2 — Synthetic data engine (~3 weeks)
 - [ ] HRTF loader (SOFA files) + binaural renderer, multi-HRTF augmentation

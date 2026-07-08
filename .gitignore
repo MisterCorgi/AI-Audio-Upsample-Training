@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+
+# Experiments & data (never commit audio datasets or checkpoints)
+data/
+checkpoints/
+runs/
+lightning_logs/
+wandb/
+*.ckpt
+*.pt
+
+# Audio scratch files
+*.wav
+*.flac
+!tests/fixtures/*.wav
